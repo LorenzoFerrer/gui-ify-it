@@ -2,7 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { MapPin, Users, Camera, Sprout, Calendar, Building2 } from "lucide-react";
+import { MapPin, Users, Sprout, Calendar, Building2 } from "lucide-react";
 
 interface Area {
   Area_ID: number;
@@ -102,7 +102,7 @@ const FarmDashboard = () => {
         </div>
 
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="bg-gradient-card border-0 shadow-card hover:shadow-elegant transition-all duration-300">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Farms</CardTitle>
@@ -133,17 +133,6 @@ const FarmDashboard = () => {
             <CardContent>
               <div className="text-2xl font-bold text-primary">3</div>
               <p className="text-xs text-muted-foreground">Bicol, Ilocos, Cagayan</p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-card border-0 shadow-card hover:shadow-elegant transition-all duration-300">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Farm Images</CardTitle>
-              <Camera className="h-4 w-4 text-primary" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-primary">12</div>
-              <p className="text-xs text-muted-foreground">Documentation photos</p>
             </CardContent>
           </Card>
         </div>
@@ -203,37 +192,32 @@ const FarmDashboard = () => {
           </div>
         </div>
 
-        {/* Users Section */}
+        {/* Farm Locations Map */}
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold text-foreground">Registered Users</h2>
+          <h2 className="text-2xl font-bold text-foreground">Farm Locations</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {sampleUsers.map((user) => (
-              <Card key={user.User_ID} className="bg-gradient-card border-0 shadow-card hover:shadow-elegant transition-all duration-300">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <CardTitle className="text-lg text-primary">
-                        {user.First_name} {user.Last_name}
-                      </CardTitle>
-                      <CardDescription>{user.Email}</CardDescription>
+          <Card className="bg-gradient-card border-0 shadow-card h-96">
+            <CardContent className="p-6 h-full">
+              <div className="w-full h-full bg-gradient-to-br from-primary/5 to-accent/10 rounded-lg border-2 border-dashed border-primary/20 flex items-center justify-center">
+                <div className="text-center space-y-4">
+                  <MapPin className="h-16 w-16 text-primary mx-auto" />
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-semibold text-primary">Interactive Farm Map</h3>
+                    <p className="text-muted-foreground max-w-md">
+                      Map integration will display farm locations across {sampleAreas.map(area => area.Region).join(', ')} regions
+                    </p>
+                    <div className="flex flex-wrap gap-2 justify-center mt-4">
+                      {sampleAreas.map((area) => (
+                        <Badge key={area.Area_ID} variant="outline" className="bg-primary/5 text-primary border-primary/30">
+                          {area.Area_Name}
+                        </Badge>
+                      ))}
                     </div>
-                    <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
-                      {user.User_Type}
-                    </Badge>
                   </div>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <div className="text-sm text-muted-foreground">
-                    <span className="font-medium">Contact:</span> {user.Contact_No}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    <span className="font-medium">Gender:</span> {user.Sex}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
